@@ -15,13 +15,26 @@ const Canvas = (props: CanvasProps) => {
                 ctx.fillStyle = (i + j) % 2 === 0 ? "black" : "white";
                 if (props.queensPositions && props.queensPositions[i][j] == 1)
                     ctx.fillStyle = "red";
-
+                
                 ctx.fillRect(
                     i * squareSize,
                     j * squareSize,
                     squareSize,
                     squareSize
                 );
+                if (props.queensPositions && props.queensPositions[i][j] == 1)
+                {
+                    //Write the Q as in Queen, bold and centered
+                    ctx.font = "bold 25px Arial";
+                    
+                    ctx.fillStyle = "white";
+                    ctx.fillText(
+                        "Q",
+                        i * squareSize + squareSize / 2 - 10,
+                        j * squareSize + squareSize / 2 + 10
+                    );
+                }
+                
             }
         }
     };
@@ -39,7 +52,8 @@ const Canvas = (props: CanvasProps) => {
             width={props.size * squareSize}
             height={props.size * squareSize}
             style={{
-                border: "6px solid black"
+                border: "6px solid black",
+                borderRadius: "1rem"
             }}
             ref={canvasRef}
             {...props.canvasProps}

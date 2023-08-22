@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Canvas from "./Canvas";
 import { PosI } from "./interfaces";
 
-function App() {
     const tamanho = 7;
-    const [tabuleiros, setTabuleiros] = useState<number[][][]>([]);
     const logPosLivres = false;
-    const [currTabuleiro, setCurrTabuleiro] = useState<number>(0);
-    useEffect(() => {
-        const localTabuleiros = [];
+
+    const localTabuleiros = [];
         for (let y = 0; y < tamanho; y++) {
             for (let x = 0; x < tamanho; x++) {
                 let currStartup = { y, x };
@@ -27,12 +22,6 @@ function App() {
                 localTabuleiros.push(tabuleiro);
             }
         }
-        setTabuleiros(localTabuleiros);
-    }, []);
-
-    useEffect(() => {
-        tabuleiros.length&& console.log(tabuleiros);
-    }, [tabuleiros]);
 
     function verificarAtaques(posVerificando: PosI, tabuleiro: number[][]) {
         function verificarVerticalHorizontal() {
@@ -228,40 +217,3 @@ function App() {
         tryBottomLeft();
         tryBottomRight();
     }
-
-    return (
-        <div
-            style={{
-                display: "flex",
-                width: "100vw",
-                height: "100vh",
-                alignItems: "center",
-                justifyContent: "center",
-                flexDirection: "column",
-                gap: "2rem"
-            }}
-        >
-            <Canvas queensPositions={tabuleiros[currTabuleiro]} size={7} />
-            <button
-                style={{
-                    border: "none",
-                    padding: "1rem 2rem",
-                    borderRadius: "0.4rem",
-                    backgroundColor: "black",
-                    color: "white"
-                }}
-                onClick={() => {
-                    //generate a random index between 0 and tabuleiros.length
-                    const randomIndex = Math.floor(
-                        Math.random() * tabuleiros.length
-                    );
-                    setCurrTabuleiro(randomIndex);
-                }}
-            >
-                Aleatorio
-            </button>
-        </div>
-    );
-}
-
-export default App;
